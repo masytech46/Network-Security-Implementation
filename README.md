@@ -1,84 +1,107 @@
 # DATSECURE Enterprise Network Security Implementation
 
-A secure enterprise network designed and implemented in **Cisco Packet Tracer** to demonstrate network segmentation, routing, access control, and secure resource sharing across multiple departments.
+![Cisco Packet Tracer](https://img.shields.io/badge/Platform-Cisco%20Packet%20Tracer-blue)
+![Network Security](https://img.shields.io/badge/Focus-Network%20Security-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+
+## Executive Summary
+
+The **DATSECURE Enterprise Network Security Implementation** project is a secure and scalable enterprise network designed and implemented using **Cisco Packet Tracer**. The solution demonstrates industry-standard networking principles, including network segmentation, routing, access control, and secure resource sharing across multiple departments.
+
+The network architecture was developed to support organizational security requirements by separating users into distinct departmental networks while maintaining controlled communication through centralized routing and Access Control Lists (ACLs).
+
+The implementation showcases practical skills in:
+
+* Enterprise Network Design
+* IPv4 Addressing and Subnetting
+* Router and Switch Configuration
+* Access Control List (ACL) Deployment
+* Inter-VLAN/Inter-Network Routing
+* Network Security Enforcement
+* Server Deployment and Access Management
 
 ---
 
-## Project Overview
+# Project Overview
 
-The **DATSECURE Enterprise Network Security Implementation** project simulates a real-world business environment where different departments require secure communication while maintaining controlled access to sensitive resources.
+## Business Scenario
 
-The network is divided into three departments:
+Organizations often require multiple departments to share infrastructure resources while ensuring that sensitive information remains protected from unauthorized access.
 
-* Administration
-* Sales
-* Human Resources (HR)
+DATSECURE addresses these challenges by implementing a segmented network architecture for:
 
-Each department operates on its own subnet and connects through a centralized router that manages routing and security policies.
+* Administration Department
+* Sales Department
+* Human Resources (HR) Department
 
-The project demonstrates key networking concepts such as:
-
-* IPv4 Addressing and Subnetting
-* Inter-Network Routing
-* Access Control Lists (ACLs)
-* Network Segmentation
-* HTTP Server Deployment
-* Network Security Enforcement
+Each department operates independently within its own subnet while controlled communication is enforced through security policies configured on the core routing device.
 
 ---
 
 ## Project Objectives
 
-The main goals of this project are to:
+The primary objectives of this project include:
 
-* Design a scalable enterprise network.
-* Implement logical network segmentation.
-* Configure secure communication between departments.
-* Restrict unauthorized access using ACLs.
-* Deploy an internal web server.
-* Control access to shared resources.
-* Validate connectivity through testing and verification.
+* Design a secure enterprise network infrastructure.
+* Implement structured IPv4 addressing.
+* Configure routing between departmental networks.
+* Deploy centralized security policies using ACLs.
+* Restrict unauthorized access to sensitive resources.
+* Implement an internal web server.
+* Verify network functionality through testing and validation.
 
 ---
 
+# Network Architecture
+
 ## Network Topology
 
-### Network Devices
+The network follows a hierarchical enterprise design model consisting of a Core Layer and an Access Layer.
 
-| Device            | Quantity | Purpose                          |
-| ----------------- | -------- | -------------------------------- |
-| Cisco Router      | 1        | Routing and Security Enforcement |
-| Cisco 2960 Switch | 3        | Department Connectivity          |
-| PCs               | 6        | End-User Devices                 |
-| Server            | 1        | Internal Web Service             |
-
-### Department Structure
-
-```text
-                    DATSECURE ROUTER
-                   /       |       \
-                  /        |        \
-                 /         |         \
-          Admin LAN   Sales LAN    HR LAN
-        192.168.10.0 192.168.20.0 192.168.30.0
-             /24          /24          /24
+```text id="c4r0b9"
+                           DATSECURE ROUTER
+                     (Core Routing & Security Layer)
+                                     |
+      ----------------------------------------------------------------
+      |                              |                               |
+      |                              |                               |
+  Admin Switch                  Sales Switch                    HR Switch
+      |                              |                               |
+  ----------                    ----------                     ----------
+  |        |                    |        |                     |        |
+Admin1  Admin2              Sales1   Sales2                HR1      HR2
+     |
+DATSECURE Server
 ```
 
 ---
 
-## IP Addressing Scheme
+## Network Components
 
-### Network Information
+| Device                     | Quantity | Function                         |
+| -------------------------- | -------- | -------------------------------- |
+| Cisco Router               | 1        | Routing and Security Enforcement |
+| Cisco Catalyst 2960 Switch | 3        | Department Connectivity          |
+| End User PCs               | 6        | User Access                      |
+| HTTP Server                | 1        | Internal Web Services            |
 
-| Department | Network Address | Subnet Mask   | Default Gateway |
-| ---------- | --------------- | ------------- | --------------- |
-| Admin      | 192.168.10.0/24 | 255.255.255.0 | 192.168.10.1    |
-| Sales      | 192.168.20.0/24 | 255.255.255.0 | 192.168.20.1    |
-| HR         | 192.168.30.0/24 | 255.255.255.0 | 192.168.30.1    |
+---
 
-### Host Allocation
+# IP Addressing Plan
 
-#### Administration Department
+## Network Addressing Scheme
+
+| Department      | Network Address | Subnet Mask   | Default Gateway |
+| --------------- | --------------- | ------------- | --------------- |
+| Administration  | 192.168.10.0/24 | 255.255.255.0 | 192.168.10.1    |
+| Sales           | 192.168.20.0/24 | 255.255.255.0 | 192.168.20.1    |
+| Human Resources | 192.168.30.0/24 | 255.255.255.0 | 192.168.30.1    |
+
+---
+
+## Host Allocation
+
+### Administration Network
 
 | Device           | IP Address    |
 | ---------------- | ------------- |
@@ -87,7 +110,7 @@ The main goals of this project are to:
 | Admin-PC2        | 192.168.10.3  |
 | DATSECURE Server | 192.168.10.10 |
 
-#### Sales Department
+### Sales Network
 
 | Device           | IP Address   |
 | ---------------- | ------------ |
@@ -95,7 +118,7 @@ The main goals of this project are to:
 | Sales-PC1        | 192.168.20.2 |
 | Sales-PC2        | 192.168.20.3 |
 
-#### Human Resources Department
+### Human Resources Network
 
 | Device           | IP Address   |
 | ---------------- | ------------ |
@@ -105,85 +128,56 @@ The main goals of this project are to:
 
 ---
 
-## Network Design
+# Network Design Methodology
 
-### Core Layer
+## Core Layer
 
-The **DATSECURE Router** serves as the central routing device and is responsible for:
+The **DATSECURE Router** serves as the central routing and security device responsible for:
 
-* Inter-network routing
+* Inter-network communication
+* Packet forwarding
 * ACL enforcement
-* Default gateway services
-* Traffic management
+* Gateway services
+* Security policy implementation
 
-### Access Layer
+### Core Responsibilities
 
-Three Cisco 2960 switches provide connectivity for:
-
-* Administration Department
-* Sales Department
-* Human Resources Department
-
-### End Devices
-
-The network includes:
-
-* 2 Administrative PCs
-* 2 Sales PCs
-* 2 HR PCs
-* 1 Internal HTTP Server
+* Route traffic between departments.
+* Restrict unauthorized communications.
+* Protect internal resources.
+* Control server accessibility.
 
 ---
 
-## Router Configuration
+## Access Layer
 
-### Interface Assignments
+The Access Layer consists of three Cisco Catalyst 2960 switches.
 
-| Interface          | IP Address   | Purpose       |
-| ------------------ | ------------ | ------------- |
-| GigabitEthernet0/0 | 192.168.10.1 | Admin Gateway |
-| GigabitEthernet0/1 | 192.168.20.1 | Sales Gateway |
-| GigabitEthernet0/2 | 192.168.30.1 | HR Gateway    |
+### Functions
 
-### Router Responsibilities
-
-* Routes traffic between networks.
-* Provides default gateway services.
-* Applies security policies.
-* Controls access to internal resources.
-
----
-
-## Switching Operations
-
-The Cisco 2960 switches operate at **Layer 2** and perform:
-
-* MAC address learning
-* Frame forwarding
-* Broadcast containment
 * User connectivity
-
-### Spanning Tree Protocol (STP)
-
-STP is enabled by default and helps:
-
-* Prevent network loops
-* Improve network stability
-* Support redundancy
+* Frame forwarding
+* MAC address learning
+* Broadcast management
+* Layer 2 switching
 
 ---
 
-## Routing Configuration
+# Routing Implementation
 
-### Directly Connected Routing
+## Routing Strategy
 
-This network uses **directly connected routing** because all subnets are physically connected to the router.
+The project utilizes **Directly Connected Routing**.
 
-No dynamic routing protocol such as **OSPF** or **EIGRP** is required.
+Because each subnet is directly attached to the router, there is no requirement for dynamic routing protocols such as:
 
-### Connected Networks
+* OSPF
+* EIGRP
+* RIP
 
-```text
+### Connected Routes
+
+```text id="r5x9gk"
 192.168.10.0/24 → Administration Network
 192.168.20.0/24 → Sales Network
 192.168.30.0/24 → Human Resources Network
@@ -191,50 +185,110 @@ No dynamic routing protocol such as **OSPF** or **EIGRP** is required.
 
 ---
 
-## Security Implementation
+# Switching Technology
 
-Security is a major focus of this project. Access Control Lists (ACLs) are configured on the router to enforce departmental access policies.
+## Cisco Catalyst 2960 Switching
+
+The switches operate at **OSI Layer 2** and perform:
+
+* MAC Address Learning
+* Frame Switching
+* Broadcast Control
+* Traffic Segmentation
+
+### Spanning Tree Protocol (STP)
+
+The network leverages **STP** to provide:
+
+* Loop Prevention
+* Network Stability
+* Fault Tolerance
+* Redundancy Protection
+
+---
+
+# Security Architecture
+
+## Security Objectives
+
+The network was designed around four key security principles:
+
+1. Segmentation
+2. Least Privilege Access
+3. Resource Protection
+4. Controlled Communication
+
+---
+
+## Access Control Policy
 
 ### Administration Department
 
-**Permissions**
+#### Permissions
 
 * Access Sales Network
 * Access HR Network
 * Access Internal Server
 
-**Access Level:** Full Access
+#### Access Level
 
-### Sales Department
-
-**Permissions**
-
-* Access Admin Network
-* Access Internal Server
-
-**Restrictions**
-
-* Cannot access HR Network
-
-**Access Level:** Limited Access
-
-### Human Resources Department
-
-**Restrictions**
-
-* Cannot access Admin Network
-* Cannot access Sales Network
-* Cannot access Internal Server
-
-**Access Level:** Highly Restricted
+**Full Administrative Access**
 
 ---
 
-## Access Control Lists (ACLs)
+### Sales Department
 
-ACLs are used to control traffic between departments and protect sensitive resources.
+#### Permissions
 
-### Sample ACL Configuration
+* Access Administration Network
+* Access Internal Web Server
+
+#### Restrictions
+
+* No access to HR resources
+
+#### Access Level
+
+**Restricted Business Access**
+
+---
+
+### Human Resources Department
+
+#### Restrictions
+
+* No access to Administration resources
+* No access to Sales resources
+* No access to Internal Server
+
+#### Access Level
+
+**Highly Restricted**
+
+---
+
+# Access Control List (ACL) Implementation
+
+ACLs were deployed to enforce organizational security policies and control traffic flow between departments.
+
+## Security Rules
+
+### Permitted Traffic
+
+* Administration → All Networks
+* Sales → Administration
+* Sales → HTTP Server
+
+### Denied Traffic
+
+* Sales → HR
+* HR → Administration
+* HR → Sales
+* HR → Internal Server
+
+---
+
+## Sample ACL Configuration
 
 ```cisco
 access-list 100 permit ip 192.168.10.0 0.0.0.255 any
@@ -250,102 +304,127 @@ access-list 100 deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
 
 ---
 
-## Server Deployment
+# Server Deployment
 
-### DATSECURE Web Server
+## DATSECURE Internal Web Server
 
-| Parameter  | Value          |
-| ---------- | -------------- |
-| IP Address | 192.168.10.10  |
-| Network    | Administration |
-| Service    | HTTP           |
+The project includes an internal HTTP server used to simulate centralized business services.
 
-### Purpose
-
-The server hosts internal web resources that are accessible only to authorized departments.
-
-### Access Permissions
-
-| Department | HTTP Access |
-| ---------- | ----------- |
-| Admin      | Allowed     |
-| Sales      | Allowed     |
-| HR         | Denied      |
+| Parameter  | Value            |
+| ---------- | ---------------- |
+| Hostname   | DATSECURE Server |
+| IP Address | 192.168.10.10    |
+| Service    | HTTP             |
+| Department | Administration   |
 
 ---
 
-## Testing and Verification
+## Server Access Matrix
 
-### Phase 1: Basic Connectivity
-
-1. Ping `Admin-PC2` from `Admin-PC1`
-2. Ping `Sales-PC2` from `Sales-PC1`
-3. Ping `HR-PC2` from `HR-PC1`
-
-**Expected Result:** Successful communication within each department.
+| Department      | Access Status |
+| --------------- | ------------- |
+| Administration  | Authorized    |
+| Sales           | Authorized    |
+| Human Resources | Denied        |
 
 ---
 
-### Phase 2: Inter-Department Communication
+# Testing and Validation
 
-1. Ping `Sales-PC1` from `Admin-PC1`
-2. Ping `Admin-PC1` from `Sales-PC1`
-3. Attempt to ping `HR-PC1` from `Sales-PC1`
-4. Attempt to ping `Admin-PC1` from `HR-PC1`
+Comprehensive testing was performed to validate functionality and security requirements.
 
-**Expected Results**
+## Connectivity Testing
 
-* Admin ↔ Sales: Allowed
-* Sales → HR: Blocked
-* HR → Admin: Blocked
+### Internal Department Testing
 
----
+```bash
+ping 192.168.10.3
+ping 192.168.20.3
+ping 192.168.30.3
+```
 
-### Phase 3: Server Access Verification
+### Expected Result
 
-1. Open `http://192.168.10.10` from `Admin-PC1`
-2. Open `http://192.168.10.10` from `Sales-PC1`
-3. Open `http://192.168.10.10` from `HR-PC1`
-
-**Expected Results**
-
-* Admin: Access Granted
-* Sales: Access Granted
-* HR: Access Denied
+* Successful connectivity within each department.
 
 ---
 
-## Project Results
+## Inter-Network Testing
 
-The project successfully achieved all intended objectives.
+### Successful Communication
 
-### Key Achievements
+```bash
+ping 192.168.20.2
+ping 192.168.10.2
+```
 
-* Successful inter-network routing
-* Effective ACL implementation
-* Secure server deployment
-* Controlled access to network resources
-* Proper network segmentation
-* Verified end-to-end connectivity
+### Expected Result
+
+* Communication succeeds according to ACL policy.
 
 ---
 
-## Technologies Used
+## Access Restriction Testing
+
+```bash
+ping 192.168.30.2
+```
+
+### Expected Result
+
+* Traffic blocked where policy restrictions apply.
+
+---
+
+## Server Access Validation
+
+### Browser Test
+
+```text
+http://192.168.10.10
+```
+
+### Expected Results
+
+| Department     | Result         |
+| -------------- | -------------- |
+| Administration | Access Granted |
+| Sales          | Access Granted |
+| HR             | Access Denied  |
+
+---
+
+# Results
+
+The project successfully met all functional and security objectives.
+
+## Key Achievements
+
+* Successful network segmentation
+* Secure inter-network routing
+* ACL policy enforcement
+* Controlled resource accessibility
+* Protected internal services
+* Verified end-to-end communication
+
+---
+
+# Technologies Used
 
 * Cisco Packet Tracer
 * Cisco Router
 * Cisco Catalyst 2960 Switches
 * IPv4 Addressing
 * Access Control Lists (ACLs)
-* HTTP Server
+* HTTP Services
 * ICMP
 * ARP
 * Spanning Tree Protocol (STP)
 
 ---
 
-## Conclusion
+# Conclusion
 
-The **DATSECURE Enterprise Network Security Implementation** project demonstrates how network segmentation, routing, and access control can be combined to build a secure and scalable enterprise network.
+The **DATSECURE Enterprise Network Security Implementation** project demonstrates the successful design and deployment of a secure enterprise network using Cisco Packet Tracer. Through effective network segmentation, structured IP addressing, centralized routing, ACL-based security controls, and controlled server access, the solution meets both operational and security requirements.
 
-By implementing dedicated departmental subnets, centralized routing, ACL-based security policies, and controlled server access, the network successfully meets both business and technical requirements while providing a strong foundation for future expansion.
+This project highlights practical enterprise networking skills and serves as a strong foundation for implementing larger, more advanced network infrastructures in real-world environments.
